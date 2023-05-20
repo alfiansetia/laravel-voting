@@ -25,4 +25,9 @@ class Event extends Model
     {
         return $this->belongsTo(Calon::class);
     }
+
+    public function vote()
+    {
+        return $this->hasMany(Vote::class);
+    }
 }

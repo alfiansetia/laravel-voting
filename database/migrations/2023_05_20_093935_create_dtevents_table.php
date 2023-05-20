@@ -18,8 +18,8 @@ return new class extends Migration
             $table->unsignedBigInteger('event_id');
             $table->unsignedBigInteger('calon_id');
             $table->timestamps();
-            $table->foreign('event_id')->references('id')->on('event')->cascadeOnUpdate()->cascadeOnUpdate();
-            $table->foreign('calon_id')->references('id')->on('calon')->cascadeOnUpdate()->cascadeOnUpdate();
+            $table->foreign('event_id')->references('id')->on('event')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreign('calon_id')->references('id')->on('calon')->cascadeOnUpdate()->cascadeOnDelete();
         });
     }
 

@@ -28,5 +28,19 @@ class CalonSeeder extends Seeder
             'partai'    => 'Ketela',
             'address'   => 'Kacangan',
         ]);
+
+        Calon::create([
+            'name'      => 'Calon3',
+            'gender'    => 'male',
+            'partai'    => 'Padi',
+            'address'   => 'Ngumbul',
+        ]);
+
+        Calon::create([
+            'name'      => 'Calon4',
+            'gender'    => 'female',
+            'partai'    => 'Ketela',
+            'address'   => 'Manggir',
+        ]);
     }
 }

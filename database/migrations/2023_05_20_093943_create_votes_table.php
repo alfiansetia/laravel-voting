@@ -20,7 +20,7 @@ return new class extends Migration
             $table->enum('status', ['valid', 'invalid'])->default('valid');
             $table->timestamps();
             $table->foreign('event_id')->references('id')->on('event')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreign('calon_id')->references('id')->on('calon')->cascadeOnUpdate()->nullOnDelete();
+            $table->foreign('calon_id')->references('id')->on('calon')->cascadeOnUpdate()->cascadeOnDelete();
         });
     }
 

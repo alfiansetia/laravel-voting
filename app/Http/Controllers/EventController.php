@@ -137,8 +137,25 @@ class EventController extends Controller
      * @param  \App\Models\Event  $event
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Event $event)
+    public function destroy(Request $request)
     {
-        //
+        if ($request->ajax()) {
+            if ($request->id) {
+                $count = count($request->id);
+                $counter = 0;
+                foreach ($request->id as $id) {
+                    $table = Event::findOrFail($id);
+                    $table->delete();
+                    if ($table) {
+                        $counter = $counter + 1;
+                    }
+                }
+                return response()->json(['status' => true, 'message' => 'Success Delete ' . $count . '/' . $counter . ' Data', 'data' => '']);
+            } else {
+                return response()->json(['status' => false, 'message' => 'No Selected Data', 'data' => '']);
+            }
+        } else {
+            abort(404);
+        }
     }
 }

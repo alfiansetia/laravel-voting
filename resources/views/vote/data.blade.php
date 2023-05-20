@@ -5,8 +5,6 @@
 <link rel="stylesheet" href="{{ asset('library/datatables.net-select-bs4/css/select.bootstrap4.min.css') }}">
 <link rel="stylesheet" href="{{ asset('plugins/table/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
 <link rel="stylesheet" href="{{ asset('library/select2/dist/css/select2.min.css') }}">
-
-<link rel="stylesheet" href="{{ asset('library/bootstrap-daterangepicker/daterangepicker.css') }}">
 @endpush
 
 @push('css')
@@ -26,10 +24,9 @@
                             <thead>
                                 <tr>
                                     <th class="dt-no-sorting" style="width: 30px;">Id</th>
-                                    <th>Name</th>
-                                    <th>Date</th>
-                                    <th>Expired</th>
-                                    <th>Desc</th>
+                                    <th>Event</th>
+                                    <th>Calon</th>
+                                    <th>Status</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -57,42 +54,32 @@
                 <form id="form" class="form-vertical" action="" method="POST" enctype="multipart/form-data">
                     <div class="form-group">
                         <label class="control-label" for="name">Name :</label>
-                        <input type="text" name="name" class="form-control" id="name" placeholder="Please Enter Name" minlength="3" maxlength="50" required>
+                        <input type="text" name="name" class="form-control" id="name" placeholder="Please Enter Name" minlength="3" maxlength="25" required>
                         <span id="err_name" class="error invalid-feedback" style="display: hide;"></span>
                     </div>
                     <div class="form-group">
-                        <label class="control-label" for="date">Date :</label>
-                        <input type="text" name="date" class="form-control" id="date" placeholder="Please Enter Date" required>
-                        <span id="err_date" class="error invalid-feedback" style="display: hide;"></span>
+                        <label class="control-label" for="gender">Gender :</label>
+                        <select name="gender" id="gender" class="form-control" style="width: 100%;" required>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                        <span id="err_gender" class="error invalid-feedback" style="display: hide;"></span>
                     </div>
                     <div class="form-group">
-                        <label class="control-label" for="expired">Expired :</label>
-                        <input type="text" name="expired" class="form-control" id="expired" placeholder="Please Enter Expired" required>
-                        <span id="err_expired" class="error invalid-feedback" style="display: hide;"></span>
+                        <label class="control-label" for="img">Image :</label>
+                        <input type="file" name="img" class="form-control" id="img" placeholder="Please Enter Image" required>
+                        <span id="err_img" class="error invalid-feedback" style="display: hide;"></span>
                     </div>
                     <div class="form-group">
-                        <label class="control-label" for="desc">Desc :</label>
-                        <textarea name="desc" class="form-control" id="desc" placeholder="Please Enter Desc" maxlength="150"></textarea>
-                        <span id="err_desc" class="error invalid-feedback" style="display: hide;"></span>
+                        <label class="control-label" for="partai">Partai :</label>
+                        <input type="text" name="partai" class="form-control" id="partai" placeholder="Please Enter Partai" maxlength="30" required>
+                        <span id="err_partai" class="error invalid-feedback" style="display: hide;"></span>
                     </div>
                     <div class="form-group">
-                        <label class="control-label" for="calon">Calon :</label>
-                        <select id="calon" class="form-control" style="width: 100%;"></select>
-                        <span id="err_calon" class="error invalid-feedback" style="display: hide;"></span>
+                        <label class="control-label" for="address">Address :</label>
+                        <textarea name="address" class="form-control" id="address" placeholder="Please Enter Address" maxlength="150"></textarea>
+                        <span id="err_address" class="error invalid-feedback" style="display: hide;"></span>
                     </div>
-                    <div class="form-group">
-                        <button type="button" class="btn btn-primary" id="btn_add_calon">Add Calon</button>
-                    </div>
-                    <table class="table table-sm table-hover" id="table_add" style="width: 100%;cursor: pointer;">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th class="dt-no-sorting" style="width: 30px;">Id</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times mr-1" data-toggle="tooltip" title="Close"></i>Close</button>
@@ -118,42 +105,33 @@
                     {{ method_field('PUT') }}
                     <div class="form-group">
                         <label class="control-label" for="edit_name">Name :</label>
-                        <input type="text" name="name" class="form-control" id="edit_name" placeholder="Please Enter Name" minlength="3" maxlength="50" required>
+                        <input type="text" name="name" class="form-control" id="edit_name" placeholder="Please Enter Name" minlength="3" maxlength="25" required>
                         <span id="err_edit_name" class="error invalid-feedback" style="display: hide;"></span>
                     </div>
                     <div class="form-group">
-                        <label class="control-label" for="edit_date">Date :</label>
-                        <input type="text" name="date" class="form-control" id="edit_date" placeholder="Please Enter Date" required>
-                        <span id="err_edit_date" class="error invalid-feedback" style="display: hide;"></span>
+                        <label class="control-label" for="edit_gender">Gender :</label>
+                        <select name="gender" id="edit_gender" class="form-control" style="width: 100%;" required>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                        <span id="err_gender" class="error invalid-feedback" style="display: hide;"></span>
                     </div>
                     <div class="form-group">
-                        <label class="control-label" for="edit_expired">Expired :</label>
-                        <input type="text" name="expired" class="form-control" id="edit_expired" placeholder="Please Enter Expired" required>
-                        <span id="err_edit_expired" class="error invalid-feedback" style="display: hide;"></span>
+                        <label class="control-label" for="edit_img">Image :</label>
+                        <input type="file" name="img" class="form-control" id="edit_img" placeholder="Please Enter Image">
+                        <span id="err_edit_img" class="error invalid-feedback" style="display: hide;"></span>
+                        <img id="img_prev" src="" alt="Menu" width="100px" height="100px">
                     </div>
                     <div class="form-group">
-                        <label class="control-label" for="edit_desc">Desc :</label>
-                        <textarea name="desc" class="form-control" id="edit_desc" placeholder="Please Enter Desc" maxlength="150"></textarea>
-                        <span id="err_edit_desc" class="error invalid-feedback" style="display: hide;"></span>
+                        <label class="control-label" for="edit_partai">Partai :</label>
+                        <input type="text" name="partai" class="form-control" id="edit_partai" placeholder="Please Enter Partai" maxlength="30" required>
+                        <span id="err_edit_partai" class="error invalid-feedback" style="display: hide;"></span>
                     </div>
                     <div class="form-group">
-                        <label class="control-label" for="edit_calon">Calon :</label>
-                        <select id="edit_calon" class="form-control" style="width: 100%;"></select>
-                        <span id="err_edit_calon" class="error invalid-feedback" style="display: hide;"></span>
+                        <label class="control-label" for="edit_address">Address :</label>
+                        <textarea name="address" class="form-control" id="edit_address" placeholder="Please Enter Address" maxlength="150"></textarea>
+                        <span id="err_edit_address" class="error invalid-feedback" style="display: hide;"></span>
                     </div>
-                    <div class="form-group">
-                        <button type="button" class="btn btn-primary" id="btn_edit_calon">Add Calon</button>
-                    </div>
-                    <table class="table table-sm table-hover" id="table_edit" style="width: 100%;cursor: pointer;">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th class="dt-no-sorting" style="width: 30px;">Id</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times mr-1" data-toggle="tooltip" title="Close"></i>Close</button>
@@ -165,6 +143,7 @@
     </div>
 </div>
 @endpush
+
 
 @push('jslib')
 <script src="{{ asset('library/datatables/media/js/jquery.dataTables.min.js') }}"></script>
@@ -179,80 +158,12 @@
 <script src="{{ asset('plugins/jquery-validation/jquery.validate.min.js') }}"></script>
 <script src="{{ asset('plugins/jquery-validation/additional-methods.min.js') }}"></script>
 
-<script src="{{ asset('library/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
 @endpush
 
 @push('js')
 <script>
     $(document).ready(function() {
-        $("#date, #edit_date, #expired, #edit_expired").daterangepicker({
-            singleDatePicker: true,
-            showDropdowns: true,
-            locale: {
-                format: 'YYYY-MM-DD'
-            },
-        });
-
-        $("#calon, #edit_calon").select2({
-            placeholder: "Select a Calon",
-            ajax: {
-                delay: 1000,
-                url: "{{ route('calon.index') }}",
-                data: function(params) {
-                    return {
-                        name: params.term,
-                        page: params.page
-                    };
-                },
-                processResults: function(data) {
-                    return {
-                        results: $.map(data.data, function(item) {
-                            return {
-                                text: item.name + ' [' + item.partai + ']',
-                                id: item.id,
-                            }
-                        })
-                    };
-                },
-            }
-        });
-
-        $("#btn_add_calon").click(function() {
-            let data = $('#calon').select2('data')
-            if (data.length > 0) {
-                let dttbl = table_add.rows().data().toArray()
-                let cari = 0
-                for (let i = 0; i < dttbl.length; i++) {
-                    if (dttbl[i].id == data[0].id) {
-                        cari++
-                    }
-                }
-                if (cari > 0) {
-                    swal(
-                        'Failed!',
-                        'Calon sudah ada',
-                        'error'
-                    )
-                } else {
-                    table_add.row.add({
-                        'id': data[0].id,
-                        'text': data[0].text,
-                    }).draw()
-                }
-            } else {
-                $('#calon').focus()
-            }
-        })
-
-        $("#btn_edit_calon").click(function() {
-            let data = $('#edit_calon').select2('data')
-            let event = $(this).val()
-            if (data.length > 0) {
-                addCalon(event, data[0].id)
-            } else {
-                $('#calon').focus()
-            }
-        })
+        $("#gender, #edit_gender").select2();
     });
 
     var table = $("#table").DataTable({
@@ -260,7 +171,7 @@
         serverSide: true,
         rowId: 'id',
         ajax: {
-            url: "{{ route('event.index') }}",
+            url: "{{ route('vote.index') }}",
             error: function(xhr, error, code) {
                 swal(
                     'Failed!',
@@ -298,46 +209,30 @@
                 return `<div class="custom-checkbox custom-control"><input type="checkbox" id="check${data}" data-checkboxes="mygroup" name="id[]" value="${data}" class="custom-control-input child-chk select-customers-info"><label for="check${data}" class="custom-control-label">&nbsp;</label></div>`
             }
         }, {
-            title: "Name",
-            data: 'name',
-        }, {
-            title: "Date",
-            data: 'date',
+            title: "Event",
+            data: 'event_id',
             render: function(data, type, row, meta) {
                 if (type == 'display') {
-                    return moment(data).format('YYYY-MM-DD')
+                    return data != null ? row.event.name : ''
                 } else {
                     return data
                 }
             }
         }, {
-            title: "Expired",
-            data: 'expired',
+            title: "Calon",
+            data: 'calon_id',
             render: function(data, type, row, meta) {
                 if (type == 'display') {
-                    return moment(data).format('YYYY-MM-DD')
+                    return data != null ? row.calon.name : ''
                 } else {
                     return data
                 }
             }
         }, {
-            title: "Desc",
-            data: 'desc',
+            title: "Status",
+            data: 'status',
         }, ],
-        buttons: [, {
-            text: '<i class="fa fa-plus"></i>Add',
-            className: 'btn btn-sm btn-primary bs-tooltip',
-            attr: {
-                'data-toggle': 'tooltip',
-                'title': 'Add Data'
-            },
-            action: function(e, dt, node, config) {
-                $('#modalAdd').modal('show');
-                $('#modalAdd').on('shown.bs.modal', function() {
-                    $('#name').focus();
-                })
-            }
-        }, {
+        buttons: [{
             text: '<i class="fa fa-tools"></i>Action',
             className: 'btn btn-sm btn-info bs-tooltip',
             attr: {
@@ -375,74 +270,6 @@
             $('#table').DataTable().buttons().container().appendTo('#tableData_wrapper .col-md-6:eq(0)');
         },
     });
-
-    var table_add = $("#table_add").DataTable({
-        rowId: 'id',
-        dom: 'lrt',
-        lengthChange: false,
-        paging: false,
-        searching: true,
-        columnDefs: [],
-        info: false,
-        columns: [{
-            title: "Name",
-            data: 'text',
-        }, {
-            title: '<i class="fas fa-cog"></i>',
-            data: 'id',
-            orderable: false,
-            width: "30px",
-            render: function(data, type, row, meta) {
-                return `<button class="btn btn-sm btn-danger" id="btn_add_delete" value="${data}" type="button"><i class="fas fa-trash"></i></button>`
-            }
-        }]
-    });
-
-    var table_edit = $("#table_edit").DataTable({
-        rowId: 'id',
-        dom: 'lrt',
-        lengthChange: false,
-        paging: false,
-        searching: true,
-        columnDefs: [],
-        info: false,
-        columns: [{
-            title: "Name",
-            data: 'calon_id',
-            render: function(data, type, row, meta) {
-                if (type == 'display') {
-                    if (data != null) {
-                        return `${row.calon.name} [${row.calon.partai}]`
-                    } else {
-                        return data
-
-                    }
-                } else {
-                    return data
-                }
-            }
-        }, {
-            title: '<i class="fas fa-cog"></i>',
-            data: 'id',
-            orderable: false,
-            width: "30px",
-            render: function(data, type, row, meta) {
-                return `<button class="btn btn-sm btn-danger" id="btn_edit_delete" value="${data}" type="button"><i class="fas fa-trash"></i></button>`
-            }
-        }]
-    });
-
-    $('#table_add').on('click', '#btn_add_delete', function() {
-        var row = table_add.row($(this).parents('tr'));
-        row.remove().draw(false);
-    });
-
-    $('#table_edit').on('click', '#btn_edit_delete', function() {
-        var row = table_edit.row($(this).parents('tr'));
-        deleteCalon(row.data().id);
-    });
-
-
     multiCheck(table);
     var id;
 
@@ -462,13 +289,6 @@
             $(element).addClass('is-valid');
         },
         submitHandler: function(form) {
-            let object = {}
-            let data = $(form).serializeArray()
-            let dttbl = table_add.rows().data().toArray()
-            for (let i = 0; i < data.length; i++) {
-                object[data[i]['name']] = data[i]['value'];
-            }
-            object.calon = dttbl
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -476,8 +296,12 @@
             });
             $.ajax({
                 type: 'POST',
-                url: "{{ route('event.store') }}",
-                data: object,
+                mimeType: 'application/json',
+                dataType: 'json',
+                contentType: false,
+                processData: false,
+                url: "{{ route('calon.store') }}",
+                data: new FormData($(form)[0]),
                 beforeSend: function() {
                     block();
                     $('button[type="submit"]').prop('disabled', true);
@@ -490,12 +314,10 @@
                 },
                 success: function(res) {
                     unblock();
+                    table.ajax.reload();
                     $('button[type="submit"]').prop('disabled', false);
                     $('#reset').click();
                     if (res.status == true) {
-                        table.ajax.reload();
-                        $('#calon').empty().change()
-                        table_add.rows().remove().draw()
                         swal(
                             'Success!',
                             res.message,
@@ -586,7 +408,7 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                 }
             });
-            let url = "{{ route('event.update', ':id') }}";
+            let url = "{{ route('calon.update', ':id') }}";
             url = url.replace(':id', id);
             $.ajax({
                 type: 'POST',
@@ -656,158 +478,8 @@
         }
     });
 
-    function addCalon(event_id, calon_id) {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        $.ajax({
-            type: 'POST',
-            url: "{{ route('dtevent.store') }}",
-            data: {
-                'event': event_id,
-                'calon': calon_id,
-            },
-            beforeSend: function() {
-                block();
-                $('button').prop('disabled', true);
-                $('#form .error.invalid-feedback').each(function(i) {
-                    $(this).hide();
-                });
-                $('#form input.is-invalid').each(function(i) {
-                    $(this).removeClass('is-invalid');
-                });
-            },
-            success: function(res) {
-                unblock();
-                $('button').prop('disabled', false);
-                if (res.status == true) {
-                    ajaxUpdate(event_id, false)
-                    swal(
-                        'Success!',
-                        res.message,
-                        'success'
-                    )
-                } else {
-                    swal(
-                        'Failed!',
-                        res.message,
-                        'error'
-                    )
-                }
-            },
-            error: function(xhr, status, error) {
-                unblock();
-                $('button').prop('disabled', false);
-                er = xhr.responseJSON.errors
-                if (xhr.status == 500) {
-                    swal(
-                        'Failed!',
-                        'Server Error',
-                        'error'
-                    )
-                } else if (xhr.status == 403) {
-                    swal(
-                        'Failed!',
-                        xhr.responseJSON.message,
-                        'error'
-                    )
-                } else if (xhr.status == 422) {
-                    swal(
-                        'Failed!',
-                        xhr.responseJSON.message,
-                        'error'
-                    )
-                } else {
-                    erlen = Object.keys(er).length
-                    for (i = 0; i < erlen; i++) {
-                        obname = Object.keys(er)[i];
-                        $('#' + obname).addClass('is-invalid');
-                        $('#err_' + obname).text(er[obname][0]);
-                        $('#err_' + obname).show();
-                    }
-                }
-            }
-        });
-    }
-
-    function deleteCalon(id) {
-        let url = "{{ route('dtevent.destroy', ':id') }}";
-        url = url.replace(':id', id);
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        $.ajax({
-            type: 'DELETE',
-            url: url,
-            beforeSend: function() {
-                block();
-                $('button').prop('disabled', true);
-                $('#form .error.invalid-feedback').each(function(i) {
-                    $(this).hide();
-                });
-                $('#form input.is-invalid').each(function(i) {
-                    $(this).removeClass('is-invalid');
-                });
-            },
-            success: function(res) {
-                unblock();
-                $('button').prop('disabled', false);
-                if (res.status == true) {
-                    $('#edit_reset').click()
-                    swal(
-                        'Success!',
-                        res.message,
-                        'success'
-                    )
-                } else {
-                    swal(
-                        'Failed!',
-                        res.message,
-                        'error'
-                    )
-                }
-            },
-            error: function(xhr, status, error) {
-                unblock();
-                $('button').prop('disabled', false);
-                er = xhr.responseJSON.errors
-                if (xhr.status == 500) {
-                    swal(
-                        'Failed!',
-                        'Server Error',
-                        'error'
-                    )
-                } else if (xhr.status == 403) {
-                    swal(
-                        'Failed!',
-                        xhr.responseJSON.message,
-                        'error'
-                    )
-                } else if (xhr.status == 422) {
-                    swal(
-                        'Failed!',
-                        xhr.responseJSON.message,
-                        'error'
-                    )
-                } else {
-                    erlen = Object.keys(er).length
-                    for (i = 0; i < erlen; i++) {
-                        obname = Object.keys(er)[i];
-                        $('#' + obname).addClass('is-invalid');
-                        $('#err_' + obname).text(er[obname][0]);
-                        $('#err_' + obname).show();
-                    }
-                }
-            }
-        });
-    }
-
     function ajaxUpdate(id, open = false) {
-        let url = "{{ route('event.edit', ':id') }}";
+        let url = "{{ route('calon.edit', ':id') }}";
         url = url.replace(':id', id);
         $.ajax({
             url: url,
@@ -844,14 +516,16 @@
 
     function updateModal(result, open = false) {
         $('#edit_reset').val(result.data.id);
-        $('#btn_edit_calon').val(result.data.id);
         $('#edit_id').val(result.data.id);
         $('#edit_name').val(result.data.name);
-        $('#edit_date').val(moment(result.data.date).format('YYYY-MM-DD'));
-        $('#edit_expired').val(moment(result.data.expired).format('YYYY-MM-DD'));
-        $('#edit_desc').val(result.data.desc);
-        $('#edit_calon').empty().change();
-        table_edit.clear().rows.add(result.data.dtevent).draw();
+        $('#edit_gender').val(result.data.gender).change();
+        $('#edit_partai').val(result.data.partai);
+        $('#edit_address').val(result.data.address);
+        if (result.data.image != null) {
+            $('#img_prev').attr('src', `{{ url('images/calon/') }}/${result.data.image}`);
+        } else {
+            $('#img_prev').attr('src', `{{ url('images/calon/${result.data.gender}.jpg') }}`);
+        }
         if (open === true) {
             $('#modalEdit').modal('show');
             $('#modalEdit').on('shown.bs.modal', function() {
@@ -880,7 +554,7 @@
                     });
                     $.ajax({
                         type: 'DELETE',
-                        url: "{{ route('event.destroy') }}",
+                        url: "{{ route('calon.destroy') }}",
                         data: $(form).serialize(),
                         beforeSend: function() {
                             block();
