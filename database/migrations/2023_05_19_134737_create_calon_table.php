@@ -13,12 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('comp', function (Blueprint $table) {
+        Schema::create('calon', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('address');
-            $table->string('logo')->nullable();
-            $table->string('fav')->nullable();
+            $table->enum('gender', ['male', 'female'])->default('male');
+            $table->string('image')->nullable();
+            $table->string('address')->nullable();
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('comp');
+        Schema::dropIfExists('calon');
     }
 };

@@ -104,51 +104,16 @@
             <li class="nav-item {{ $title == 'Dashboard' ? 'active' : '' }}">
                 <a href="{{ route('home') }}" class="nav-link"><i class="fas fa-fire"></i><span>Dashboard</span></a>
             </li>
-            <li class="nav-item dropdown {{ $title == 'Data Table' || $title == 'Data Category' || $title == 'Data Menu' || $title == 'Data User' ? 'active' : '' }}">
+            <li class="nav-item dropdown {{ $title == 'Data Calon' || $title == 'Data Category' || $title == 'Data Menu' || $title == 'Data User' ? 'active' : '' }}">
                 <a href="javascript:void(0);" data-toggle="dropdown" class="nav-link has-dropdown"><i class="fas fa-database"></i><span>Master Data</span></a>
                 <ul class="dropdown-menu">
-                    <li class="nav-item {{ $title == 'Data Table' ? 'active' : '' }}"><a class="nav-link" href="{{ route('table.index') }}">Table</a></li>
-                    <li class="nav-item {{ $title == 'Data Category' ? 'active' : '' }}"><a class="nav-link" href="{{ route('catmenu.index') }}">Category</a></li>
-                    <li class="nav-item {{ $title == 'Data Menu' ? 'active' : '' }}"><a class="nav-link" href="{{ route('menu.index') }}">Menu</a></li>
-                    @role('admin')
-                    <li class="nav-item {{ $title == 'Data User' ? 'active' : '' }}"><a class="nav-link" href="{{ route('user.index') }}">User</a></li>
-                    @endrole
+                    <li class="nav-item {{ $title == 'Data Calon' ? 'active' : '' }}"><a class="nav-link" href="{{ route('calon.index') }}">Table</a></li>
                 </ul>
             </li>
             <li class="nav-item {{ $title == 'New Order' ? 'active' : '' }}">
-                <a href="{{ route('cart.index') }}" class="nav-link"><i class="fas fa-cart-plus"></i><span>New Order</span></a>
+                <a href="{{ route('home') }}" class="nav-link"><i class="fas fa-cart-plus"></i><span>New Order</span></a>
             </li>
-            <li class="nav-item dropdown {{ $title == 'Data Order' || $title == 'Request Stock' ? 'active' : '' }}">
-                <a href="javascript:void(0);" data-toggle="dropdown" class="nav-link has-dropdown"><i class="fas fa-exchange-alt"></i><span>Transaction</span></a>
-                <ul class="dropdown-menu">
-                    <li class="nav-item {{ $title == 'Data Order' ? 'active' : '' }}"><a class="nav-link" href="{{ route('order.index') }}">Order</a></li>
-                    <li class="nav-item {{ $title == 'Request Stock' ? 'active' : '' }}"><a class="nav-link" href="{{ route('reqstock.index') }}">Request Stock</a></li>
-                    <li class="nav-item {{ $title == 'Cancel Order' ? 'active' : '' }}"><a class="nav-link" href="{{ route('order.index') }}">Cancel Order</a></li>
-                </ul>
-            </li>
-            <li class="nav-item dropdown {{ $title == 'Report' || $title == 'Report Kasir' ? 'active' : '' }}">
-                <a href="javascript:void(0);" data-toggle="dropdown" class="nav-link has-dropdown"><i class="far fa-clone"></i><span>Report</span></a>
-                <ul class="dropdown-menu">
-                    <li class="nav-item {{ $title == 'Report' ? 'active' : '' }}"><a href="{{ route('report.index') }}" class="nav-link">Sales</a></li>
-                    @role('admin')
-                    <li class="nav-item {{ $title == 'Report Kasir' ? 'active' : '' }}"><a href="{{ route('report.user') }}" class="nav-link">Kasir</a></li>
-                    @endrole
-                    <!-- <li class="nav-item"><a href="#" class="nav-link">Sales</a></li>
-                    <li class="nav-item dropdown"><a href="#" class="nav-link has-dropdown">Hover Me</a>
-                        <ul class="dropdown-menu">
-                            <li class="nav-item"><a href="#" class="nav-link">Link</a></li>
-                            <li class="nav-item dropdown"><a href="#" class="nav-link has-dropdown">Link 2</a>
-                                <ul class="dropdown-menu">
-                                    <li class="nav-item"><a href="#" class="nav-link">Link</a></li>
-                                    <li class="nav-item"><a href="#" class="nav-link">Link</a></li>
-                                    <li class="nav-item"><a href="#" class="nav-link">Link</a></li>
-                                </ul>
-                            </li>
-                            <li class="nav-item"><a href="#" class="nav-link">Link 3</a></li>
-                        </ul>
-                    </li> -->
-                </ul>
-            </li>
+
         </ul>
     </div>
 </nav>
