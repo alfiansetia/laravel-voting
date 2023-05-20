@@ -62,29 +62,18 @@ class DteventController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    // public function destroy(Request $request)
-    // {
-    //     $this->validate($request, [
-    //         'event' => 'required|integer|exists:dtevent,event_id',
-    //         'calon' => 'required|integer|exists:dtevent,calon_id',
-    //     ]);
-    //     $data = Dtevent::where('event_id', $request->event)->where('calon_id', $request->calon)->first();
-    //     $data->delete();
-    //     if ($data) {
-    //         return response()->json(['status' => true, 'message' => 'Success Delete Data', 'data' => '']);
-    //     } else {
-    //         return response()->json(['status' => false, 'message' => 'Failed Delete Data', 'data' => '']);
-    //     }
-    // }
-
-    public function destroy(Dtevent $dtevent)
+    public function destroy(Request $request, Dtevent $dtevent)
     {
-        $dtevent = Dtevent::findOrFail($dtevent->id);
-        $dtevent->delete();
-        if ($dtevent) {
-            return response()->json(['status' => true, 'message' => 'Success Delete Data', 'data' => '']);
+        if ($request->ajax()) {
+            $dtevent = Dtevent::findOrFail($dtevent->id);
+            $dtevent->delete();
+            if ($dtevent) {
+                return response()->json(['status' => true, 'message' => 'Success Delete Data', 'data' => '']);
+            } else {
+                return response()->json(['status' => false, 'message' => 'Failed Delete Data', 'data' => '']);
+            }
         } else {
-            return response()->json(['status' => false, 'message' => 'Failed Delete Data', 'data' => '']);
+            abort(404);
         }
     }
 }
