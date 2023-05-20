@@ -27,7 +27,7 @@
                         <div class="row">
                             <div class="form-group col-12">
                                 <label for="name">Full Name</label>
-                                <input type="text" name="name" id="name" class="form-control" value="{{ auth()->user()->name }}" minlength="3" maxlength="25" placeholder="Please Input Name" required>
+                                <input type="text" name="name" id="name" class="form-control" value="{{ auth()->user()->name }}" minlength="3" maxlength="25" placeholder="Please Input Name" required autofocus>
                                 <div class="invalid-feedback">
                                     Please fill in the full name
                                 </div>
@@ -39,40 +39,18 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="form-group col-md-7 col-12">
+                            <div class="form-group col-12">
                                 <label for="email">Email</label>
-                                <input type="email" name="email" id="email" class="form-control" value="{{ auth()->user()->email }}" placeholder="Please Input Email" disabled>
+                                <input type="email" name="email" id="email" class="form-control" value="{{ auth()->user()->email }}" minlength="5" maxlength="150" placeholder="Please Input Email" required>
                                 <div class="invalid-feedback">
                                     Please fill in the email
                                 </div>
-                            </div>
-                            <div class="form-group col-md-5 col-12">
-                                <label for="wa">WA</label>
-                                <input type="tel" name="wa" id="wa" class="form-control" value="{{ auth()->user()->wa }}" minlength="3" maxlength="15" placeholder="Please Input WA" required>
-                                <div class="invalid-feedback">
-                                    Please fill in the WA
-                                </div>
-                                @error('wa')
+                                @error('email')
                                 <div class="alert alert-danger mt-2">
                                     {{ $message }}
                                 </div>
                                 @enderror
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-12">
-                                <label for="address">Address</label>
-                                <textarea name="address" id="address" class="form-control" cols="30" rows="10" maxlength="150" required>{{ auth()->user()->address }}</textarea>
-                                <div class="invalid-feedback">
-                                    Please fill in the Address
-                                </div>
-                                @error('address')
-                                <div class="alert alert-danger mt-2">
-                                    {{ $message }}
-                                </div>
-                                @enderror
-                            </div>
-
                         </div>
                     </div>
                     <div class="card-footer bg-whitesmoke text-md-right">
@@ -91,7 +69,6 @@
                         <h4>Password</h4>
                     </div>
                     <div class="card-body">
-
                         <div class="row">
                             <div class="form-group col-12 col-lg-6">
                                 <label for="password">New Password</label>

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Calon;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -14,6 +15,18 @@ class CalonSeeder extends Seeder
      */
     public function run()
     {
-        //
+        Calon::create([
+            'name'      => 'Calon1',
+            'gender'    => 'male',
+            'partai'    => 'Padi',
+            'address'   => 'Ngetrep',
+        ]);
+
+        Calon::create([
+            'name'      => 'Calon2',
+            'gender'    => 'female',
+            'partai'    => 'Ketela',
+            'address'   => 'Kacangan',
+        ]);
     }
 }

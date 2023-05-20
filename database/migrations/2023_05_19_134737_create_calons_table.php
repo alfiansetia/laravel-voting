@@ -13,15 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('calon', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->datetime('last_login_at')->nullable();
-            $table->string('last_login_ip')->nullable();
-            $table->rememberToken();
+            $table->enum('gender', ['male', 'female'])->default('male');
+            $table->string('image')->nullable();
+            $table->string('partai');
+            $table->string('address')->nullable();
             $table->timestamps();
         });
     }
@@ -33,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('calon');
     }
 };

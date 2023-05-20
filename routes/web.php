@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\CalonController;
 use App\Http\Controllers\CompController;
+use App\Http\Controllers\DteventController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
@@ -36,5 +38,15 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::get('/company', [CompController::class, 'index'])->name('company.index');
     Route::post('/company', [CompController::class, 'store'])->name('company.store');
 
-    Route::resource('calon', CalonController::class)->only(['index', 'store', 'edit', 'update', 'destroy']);
+    Route::delete('/calon', [CalonController::class, 'destroy'])->name('calon.destroy');
+    Route::resource('calon', CalonController::class)->only(['index', 'store', 'edit', 'update']);
+
+    Route::delete('/user', [UserController::class, 'destroy'])->name('user.destroy');
+    Route::resource('user', UserController::class)->only(['index', 'store', 'edit', 'update']);
+
+    Route::delete('/event', [EventController::class, 'destroy'])->name('event.destroy');
+    Route::resource('event', EventController::class)->only(['index', 'store', 'edit', 'update']);
+
+    // Route::delete('/dtevent', [DteventController::class, 'destroy'])->name('dtevent.destroy');
+    Route::resource('dtevent', DteventController::class)->only(['index', 'store', 'destroy']);
 });

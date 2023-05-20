@@ -26,9 +26,6 @@
                                     <th class="dt-no-sorting" style="width: 30px;">Id</th>
                                     <th>Name</th>
                                     <th>Email</th>
-                                    <th>WA</th>
-                                    <th>Role</th>
-                                    <th>Address</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -65,27 +62,9 @@
                         <span id="err_email" class="error invalid-feedback" style="display: hide;"></span>
                     </div>
                     <div class="form-group">
-                        <label class="control-label" for="wa"><i class="fab fa-whatsapp mr-1" data-toggle="tooltip" title="WA User"></i>WA :</label>
-                        <input type="tel" name="wa" class="form-control" id="wa" placeholder="Please Enter WA" maxlength="15">
-                        <span id="err_wa" class="error invalid-feedback" style="display: hide;"></span>
-                    </div>
-                    <div class="form-group">
                         <label class="control-label" for="password"><i class="fas fa-lock mr-1" data-toggle="tooltip" title="Password User"></i>Password :</label>
                         <input type="password" name="password" class="form-control" id="password" placeholder="Please Enter Password" minlength="5" required>
                         <span id="err_password" class="error invalid-feedback" style="display: hide;"></span>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label" for="role"><i class="fas fa-user-tag mr-1" data-toggle="tooltip" title="Role User"></i>Role :</label>
-                        <select name="role" id="role" class="form-control select2" style="width: 100%;" required>
-                            <option value="admin">Admin</option>
-                            <option value="kasir">Kasir</option>
-                        </select>
-                        <span id="err_role" class="error invalid-feedback" style="display: hide;"></span>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label" for="address"><i class="fas fa-map-marker mr-1" data-toggle="tooltip" title="Address User"></i>Address :</label>
-                        <textarea name="address" class="form-control" id="address" placeholder="Please Enter Address" maxlength="150"></textarea>
-                        <span id="err_address" class="error invalid-feedback" style="display: hide;"></span>
                     </div>
             </div>
             <div class="modal-footer">
@@ -120,25 +99,6 @@
                         <label class="control-label" for="edit_email"><i class="far fa-envelope mr-1" data-toggle="tooltip" title="Email User"></i>Email :</label>
                         <input type="email" name="email" class="form-control" id="edit_email" placeholder="Please Enter Email" required>
                         <span id="err_edit_email" class="error invalid-feedback" style="display: hide;"></span>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label" for="edit_wa"><i class="fab fa-whatsapp mr-1" data-toggle="tooltip" title="WA User"></i>WA :</label>
-                        <input type="text" name="wa" class="form-control" id="edit_wa" placeholder="Please Enter WA" maxlength="15">
-                        <span id="err_edit_wa" class="error invalid-feedback" style="display: hide;"></span>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label" for="edit_role"><i class="fas fa-user-tag mr-1" data-toggle="tooltip" title="Role User"></i>Role :</label>
-                        <select name="role" id="edit_role" class="form-control select2" style="width: 100%;" required>
-                            <option value="">Please Select Role</option>
-                            <option value="admin">Admin</option>
-                            <option value="kasir">Kasir</option>
-                        </select>
-                        <span id="err_edit_role" class="error invalid-feedback" style="display: hide;"></span>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label" for="edit_address"><i class="fas fa-map-marker mr-1" data-toggle="tooltip" title="Address User"></i>Address :</label>
-                        <textarea name="address" class="form-control" id="edit_address" placeholder="Please Enter Address" maxlength="150"></textarea>
-                        <span id="err_edit_address" class="error invalid-feedback" style="display: hide;"></span>
                     </div>
             </div>
             <div class="modal-footer">
@@ -215,47 +175,9 @@
         }, {
             title: "Name",
             data: 'name',
-            render: function(data, type, row, meta) {
-                if (row.email_verified_at != null) {
-                    text = `<i class="fas fa-circle text-success" data-toggle="tooltip" title="Active"></i> ${data}`;
-                } else {
-                    text = `<i class="fas fa-circle text-danger" data-toggle="tooltip" title="Nonactive"></i> ${data}`;
-                }
-                if (type == 'display') {
-                    return text
-                } else {
-                    return data
-                }
-            }
         }, {
             title: "Email",
             data: 'email',
-        }, {
-            title: "WA",
-            data: 'wa',
-        }, {
-            title: 'Role',
-            data: 'roles[0].name',
-            orderable: false,
-            searchable: false,
-            render: function(data, type, row, meta) {
-                let text = '';
-                if (data != '') {
-                    if (data == 'admin') {
-                        text = `<span class="badge badge-success">${data}</span>`
-                    } else {
-                        text = `<span class="badge badge-danger">${data}</span>`
-                    }
-                }
-                if (type == 'display') {
-                    return text
-                } else {
-                    return data
-                }
-            }
-        }, {
-            title: "Address",
-            data: 'address',
         }, ],
         buttons: [, {
                 text: '<i class="fa fa-plus"></i>Add',
@@ -414,13 +336,6 @@
                 $('#edit_id').val(result.data.id);
                 $('#edit_name').val(result.data.name);
                 $('#edit_email').val(result.data.email);
-                $('#edit_wa').val(result.data.wa);
-                $('#edit_address').val(result.data.address);
-                if (result.data.roles.length > 0) {
-                    $('#edit_role').val(result.data.roles[0].name).change();
-                } else {
-                    $('#edit_role').val('').change();
-                }
                 $('#edit_reset').prop('disabled', false);
             },
             beforeSend: function() {
@@ -461,13 +376,6 @@
                     $('#edit_id').val(result.data.id);
                     $('#edit_name').val(result.data.name);
                     $('#edit_email').val(result.data.email);
-                    $('#edit_wa').val(result.data.wa);
-                    $('#edit_address').val(result.data.address);
-                    if (result.data.roles.length > 0) {
-                        $('#edit_role').val(result.data.roles[0].name).change();
-                    } else {
-                        $('#edit_role').val('').change();
-                    }
                     $('#modalEdit').modal('show');
                     $('#modalEdit').on('shown.bs.modal', function() {
                         $('#edit_name').focus();

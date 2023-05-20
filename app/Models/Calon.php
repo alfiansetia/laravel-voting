@@ -12,6 +12,8 @@ class Calon extends Model
     protected $fillable = [
         'name',
         'gender',
+        'image',
+        'partai',
         'address',
     ];
 }

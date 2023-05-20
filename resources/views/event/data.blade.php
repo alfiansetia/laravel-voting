@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="{{ asset('plugins/table/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
 <link rel="stylesheet" href="{{ asset('library/select2/dist/css/select2.min.css') }}">
 
-<link rel="stylesheet" href="{{ asset('plugins/pagination/pagination.css') }}">
+<link rel="stylesheet" href="{{ asset('library/bootstrap-daterangepicker/daterangepicker.css') }}">
 @endpush
 
 @push('css')
@@ -19,56 +19,23 @@
             <div class="card card-primary">
                 <div class="card-header">
                     <h4>{{ $title }}</h4>
-                    <div class="card-header-action">
-                        <div class="btn-group">
-                            <button type="button" id="btn_list" class="btn btn-primary">List</button>
-                            <button type="button" id="btn_table" class="btn btn-primary">Table</button>
-                        </div>
-                    </div>
                 </div>
-                <div class="card-body pt-0" id="data_list">
-                    <div class="m-2">
-                        <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" id="table_all" name="status" class="custom-control-input" value="all" checked>
-                            <label class="custom-control-label" for="table_all">all</label>
-                        </div>
-                        <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" id="table_available" name="status" class="custom-control-input" value="available">
-                            <label class="custom-control-label" for="table_available">available</label>
-                        </div>
-                    </div>
-                    <div class="table-responsive">
-                        <div id="data" class="row data-container">
-                            <div class="col-1 mb-3">
-                                <button class="btn btn-outline-secondary btn-sm pt-2 pb-2 btn-menu btn-block pilih">
-                                    <b style="font-size:12pt;" class="text-primary">#1</b>
-                                    <br>
-                                    (cccc)
-                                </button>
-                            </div>
-                        </div>
-                        <br>
-                        <div class="wrapper">
-                            <div id="pagination" class="pagination d-inline"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body pt-0" id="data_table">
-                    <div class="table-responsive">
-                        <form action="" id="formSelected">
-                            <table class="table table-hover" id="table" style="width: 100%;cursor: pointer;">
-                                <thead>
-                                    <tr>
-                                        <th class="dt-no-sorting" style="width: 30px;">Id</th>
-                                        <th>Number</th>
-                                        <th>Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                            </table>
-                        </form>
-                    </div>
+                <div class="card-body pt-0">
+                    <form action="" id="formSelected">
+                        <table class="table table-hover" id="table" style="width: 100%;cursor: pointer;">
+                            <thead>
+                                <tr>
+                                    <th class="dt-no-sorting" style="width: 30px;">Id</th>
+                                    <th>Name</th>
+                                    <th>Date</th>
+                                    <th>Expired</th>
+                                    <th>Desc</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </form>
                 </div>
             </div>
         </div>
@@ -77,7 +44,7 @@
 @endsection
 
 @push('modal')
-<div class="modal animated fade fadeInDown" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static">
+<div class="modal animated fade fadeInDown" id="modalAdd" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static">
     <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -89,19 +56,43 @@
             <div class="modal-body">
                 <form id="form" class="form-vertical" action="" method="POST" enctype="multipart/form-data">
                     <div class="form-group">
-                        <label class="control-label" for="number"><i class="fas fa-table mr-1" data-toggle="tooltip" title="Number Table"></i>Number :</label>
-                        <input type="number" name="number" class="form-control" id="number" placeholder="Please Enter Number" max="1000" required>
-                        <span id="err_number" class="error invalid-feedback" style="display: hide;"></span>
+                        <label class="control-label" for="name">Name :</label>
+                        <input type="text" name="name" class="form-control" id="name" placeholder="Please Enter Name" minlength="3" maxlength="50" required>
+                        <span id="err_name" class="error invalid-feedback" style="display: hide;"></span>
                     </div>
                     <div class="form-group">
-                        <label class="control-label" for="status"><i class="fas fa-question-circle mr-1" data-toggle="tooltip" title="Status Table"></i>Status :</label>
-                        <select name="status" id="status" class="form-control select2" style="width: 100%;" required>
-                            <option value="free">free</option>
-                            <option value="booked">booked</option>
-                            <option value="nonactive">nonactive</option>
-                        </select>
-                        <span id="err_status" class="error invalid-feedback" style="display: hide;"></span>
+                        <label class="control-label" for="date">Date :</label>
+                        <input type="text" name="date" class="form-control" id="date" placeholder="Please Enter Date" required>
+                        <span id="err_date" class="error invalid-feedback" style="display: hide;"></span>
                     </div>
+                    <div class="form-group">
+                        <label class="control-label" for="expired">Expired :</label>
+                        <input type="text" name="expired" class="form-control" id="expired" placeholder="Please Enter Expired" required>
+                        <span id="err_expired" class="error invalid-feedback" style="display: hide;"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="desc">Desc :</label>
+                        <textarea name="desc" class="form-control" id="desc" placeholder="Please Enter Desc" maxlength="150"></textarea>
+                        <span id="err_desc" class="error invalid-feedback" style="display: hide;"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="calon">Calon :</label>
+                        <select id="calon" class="form-control" style="width: 100%;"></select>
+                        <span id="err_calon" class="error invalid-feedback" style="display: hide;"></span>
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-primary" id="btn_add_calon">Add Calon</button>
+                    </div>
+                    <table class="table table-sm table-hover" id="table_add" style="width: 100%;cursor: pointer;">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th class="dt-no-sorting" style="width: 30px;">Id</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times mr-1" data-toggle="tooltip" title="Close"></i>Close</button>
@@ -113,7 +104,7 @@
     </div>
 </div>
 
-<div class="modal animated fade fadeInDown" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static">
+<div class="modal animated fade fadeInDown" id="modalEdit" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static">
     <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -126,19 +117,43 @@
                 <form id="formEdit" class="fofrm-vertical" action="" method="POST" enctype="multipart/form-data">
                     {{ method_field('PUT') }}
                     <div class="form-group">
-                        <label class="control-label" for="edit_number"><i class="fas fa-table mr-1" data-toggle="tooltip" title="Number Table"></i>Number :</label>
-                        <input type="number" name="number" class="form-control" id="edit_number" placeholder="Please Enter Number" max="1000" required>
-                        <span id="err_edit_number" class="error invalid-feedback" style="display: hide;"></span>
+                        <label class="control-label" for="edit_name">Name :</label>
+                        <input type="text" name="name" class="form-control" id="edit_name" placeholder="Please Enter Name" minlength="3" maxlength="50" required>
+                        <span id="err_edit_name" class="error invalid-feedback" style="display: hide;"></span>
                     </div>
                     <div class="form-group">
-                        <label class="control-label" for="edit_status"><i class="fas fa-question-circle mr-1" data-toggle="tooltip" title="Status Table"></i>Status :</label>
-                        <select name="status" id="edit_status" class="form-control select2" style="width: 100%;" required>
-                            <option value="free">free</option>
-                            <option value="booked">booked</option>
-                            <option value="nonactive">nonactive</option>
-                        </select>
-                        <span id="err_edit_status" class="error invalid-feedback" style="display: hide;"></span>
+                        <label class="control-label" for="edit_date">Date :</label>
+                        <input type="text" name="date" class="form-control" id="edit_date" placeholder="Please Enter Date" required>
+                        <span id="err_edit_date" class="error invalid-feedback" style="display: hide;"></span>
                     </div>
+                    <div class="form-group">
+                        <label class="control-label" for="edit_expired">Expired :</label>
+                        <input type="text" name="expired" class="form-control" id="edit_expired" placeholder="Please Enter Expired" required>
+                        <span id="err_edit_expired" class="error invalid-feedback" style="display: hide;"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="edit_desc">Desc :</label>
+                        <textarea name="desc" class="form-control" id="edit_desc" placeholder="Please Enter Desc" maxlength="150"></textarea>
+                        <span id="err_edit_desc" class="error invalid-feedback" style="display: hide;"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="edit_calon">Calon :</label>
+                        <select id="edit_calon" class="form-control" style="width: 100%;"></select>
+                        <span id="err_edit_calon" class="error invalid-feedback" style="display: hide;"></span>
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-primary" id="btn_edit_calon">Add Calon</button>
+                    </div>
+                    <table class="table table-sm table-hover" id="table_edit" style="width: 100%;cursor: pointer;">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th class="dt-no-sorting" style="width: 30px;">Id</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times mr-1" data-toggle="tooltip" title="Close"></i>Close</button>
@@ -149,36 +164,7 @@
         </div>
     </div>
 </div>
-
-<div class="modal animated fade fadeInDown" id="modalChange" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static">
-    <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle"><i class="fas fa-edit mr-1" data-toggle="tooltip" title="Change Data"></i>Change Data</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true" data-toggle="tooltip" title="Close">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label class="control-label" for="change_status"><i class="fas fa-question-circle mr-1" data-toggle="tooltip" title="Status Table"></i>Status :</label>
-                    <select name="status" id="change_status" class="form-control select2" style="width: 100%;" required>
-                        <option value="free">free</option>
-                        <option value="booked">booked</option>
-                        <option value="nonactive">nonactive</option>
-                    </select>
-                    <span id="err_change_status" class="error invalid-feedback" style="display: hide;"></span>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times mr-1" data-toggle="tooltip" title="Close"></i>Close</button>
-                <button type="button" id="submitChange" class="btn btn-primary"><i class="fas fa-paper-plane mr-1" data-toggle="tooltip" title="Save"></i>Save</button>
-            </div>
-        </div>
-    </div>
-</div>
 @endpush
-
 
 @push('jslib')
 <script src="{{ asset('library/datatables/media/js/jquery.dataTables.min.js') }}"></script>
@@ -193,111 +179,88 @@
 <script src="{{ asset('plugins/jquery-validation/jquery.validate.min.js') }}"></script>
 <script src="{{ asset('plugins/jquery-validation/additional-methods.min.js') }}"></script>
 
-<script src="{{ asset('plugins/pagination/pagination.min.js') }}"></script>
-
+<script src="{{ asset('library/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
 @endpush
 
 @push('js')
 <script>
     $(document).ready(function() {
-
-        navigasi('list');
-
-        dataContainer = $('#data')
-
-        pg = pgn_table()
-
-        $('#btn_list').click(function() {
-            navigasi('list');
-        })
-
-        $('#btn_table').click(function() {
-            navigasi('table');
-        })
-
-        $('input[type=radio][name=status]').change(function() {
-            pg.pagination('destroy');
-            pg = pgn_table()
-            pg.pagination(1);
+        $("#date, #edit_date, #expired, #edit_expired").daterangepicker({
+            singleDatePicker: true,
+            showDropdowns: true,
+            locale: {
+                format: 'YYYY-MM-DD'
+            },
         });
 
-        function pgn_table() {
-            let status = $('input[type=radio][name=status]:checked').val()
-            let object = $('#pagination').pagination({
-                dataSource: "{{ route('table.paginate') }}" + (status == 'available' ? '?status=available' : ''),
-                alias: {
-                    pageNumber: 'page',
+        $("#calon, #edit_calon").select2({
+            placeholder: "Select a Calon",
+            ajax: {
+                delay: 1000,
+                url: "{{ route('calon.index') }}",
+                data: function(params) {
+                    return {
+                        name: params.term,
+                        page: params.page
+                    };
                 },
-                locator: 'data',
-                totalNumberLocator: function(response) {
-                    return response.total
+                processResults: function(data) {
+                    return {
+                        results: $.map(data.data, function(item) {
+                            return {
+                                text: item.name + ' [' + item.partai + ']',
+                                id: item.id,
+                            }
+                        })
+                    };
                 },
-                showPageNumbers: true,
-                showSizeChanger: true,
-                ajax: {
-                    beforeSend: function() {
-                        dataContainer.html(`<div class="col-12 text-center"><div class="spinner-border" role="status"><span class="sr-only">Loading...</span></div></div>`);
-                    }
-                },
-                pageSize: 30,
-                formatAjaxError: function(jqXHR, textStatus, errorThrown) {
-                    swal(
-                        'Failed!',
-                        'Server Error',
-                        'error'
-                    )
-                },
-                callback: function(data, pagination) {
+            }
+        });
 
-                    let page = pagination.pageNumber
-                    let total = data.length;
-                    if (total > 0) {
-                        show_data(data);
-                    } else {
-                        dataContainer.html(`<div class="col-12 text-center">Table tidak tersedia</div>`);
+        $("#btn_add_calon").click(function() {
+            let data = $('#calon').select2('data')
+            if (data.length > 0) {
+                let dttbl = table_add.rows().data().toArray()
+                let cari = 0
+                for (let i = 0; i < dttbl.length; i++) {
+                    if (dttbl[i].id == data[0].id) {
+                        cari++
                     }
                 }
-            })
-
-            return object
-
-        }
-
-        function navigasi(active) {
-            if (active == 'list') {
-                $('#btn_list').prop('disabled', true);
-                $('#btn_table').prop('disabled', false);
-                $("#data_list").show();
-                $("#data_table").css("display", "none");
+                if (cari > 0) {
+                    swal(
+                        'Failed!',
+                        'Calon sudah ada',
+                        'error'
+                    )
+                } else {
+                    table_add.row.add({
+                        'id': data[0].id,
+                        'text': data[0].text,
+                    }).draw()
+                }
             } else {
-                $('#btn_list').prop('disabled', false);
-                $('#btn_table').prop('disabled', true);
-                $("#data_table").show();
-                $("#data_list").css("display", "none");
+                $('#calon').focus()
             }
-        }
+        })
 
-        function show_data(data) {
-            let text = '';
-            for (let i = 0; i < data.length; i++) {
-                text += `<div class="col-xl-2 col-lg-2 col-md-3 col-4 mb-2 ">
-                            <button onclick="get_data(${data[i].id}, false)"; data-toggle="tooltip" title="${data[i].status}"} class="btn btn-lg btn-outline-${data[i].status == 'free' ? 'success' : data[i].status == 'booked'? 'warning' : 'danger'} m-0 btn-menu btn-block">
-                                <b style="font-size:10pt;white-space: nowrap;text-align:center;" class="text-primary">${data[i].number}</b>
-                            </button>
-                        </div>`
+        $("#btn_edit_calon").click(function() {
+            let data = $('#edit_calon').select2('data')
+            let event = $(this).val()
+            if (data.length > 0) {
+                addCalon(event, data[0].id)
+            } else {
+                $('#calon').focus()
             }
-            $('#data').html(text);
-        }
+        })
     });
-</script>
 
-<script>
     var table = $("#table").DataTable({
         processing: true,
         serverSide: true,
         rowId: 'id',
         ajax: {
-            url: "{{ route('table.index') }}",
+            url: "{{ route('event.index') }}",
             error: function(xhr, error, code) {
                 swal(
                     'Failed!',
@@ -335,27 +298,32 @@
                 return `<div class="custom-checkbox custom-control"><input type="checkbox" id="check${data}" data-checkboxes="mygroup" name="id[]" value="${data}" class="custom-control-input child-chk select-customers-info"><label for="check${data}" class="custom-control-label">&nbsp;</label></div>`
             }
         }, {
-            title: "Number",
-            data: 'number',
+            title: "Name",
+            data: 'name',
         }, {
-            title: "Status",
-            data: 'status',
+            title: "Date",
+            data: 'date',
             render: function(data, type, row, meta) {
-                let text = ''
-                if (data == 'free') {
-                    text = `<span class="badge badge-success">${data}</span>`;
-                } else if (data == 'nonactive') {
-                    text = `<span class="badge badge-danger">${data}</span>`;
-                } else {
-                    text = `<span class="badge badge-warning">${data}</span>`;
-                }
                 if (type == 'display') {
-                    return text
+                    return moment(data).format('YYYY-MM-DD')
                 } else {
                     return data
                 }
             }
-        }],
+        }, {
+            title: "Expired",
+            data: 'expired',
+            render: function(data, type, row, meta) {
+                if (type == 'display') {
+                    return moment(data).format('YYYY-MM-DD')
+                } else {
+                    return data
+                }
+            }
+        }, {
+            title: "Desc",
+            data: 'desc',
+        }, ],
         buttons: [, {
             text: '<i class="fa fa-plus"></i>Add',
             className: 'btn btn-sm btn-primary bs-tooltip',
@@ -366,7 +334,7 @@
             action: function(e, dt, node, config) {
                 $('#modalAdd').modal('show');
                 $('#modalAdd').on('shown.bs.modal', function() {
-                    $('#number').focus();
+                    $('#name').focus();
                 })
             }
         }, {
@@ -379,12 +347,6 @@
             extend: 'collection',
             autoClose: true,
             buttons: [{
-                text: 'Change',
-                className: 'btn btn-info',
-                action: function(e, dt, node, config) {
-                    changeData();
-                }
-            }, {
                 text: 'Remove',
                 className: 'btn btn-danger',
                 action: function(e, dt, node, config) {
@@ -413,6 +375,74 @@
             $('#table').DataTable().buttons().container().appendTo('#tableData_wrapper .col-md-6:eq(0)');
         },
     });
+
+    var table_add = $("#table_add").DataTable({
+        rowId: 'id',
+        dom: 'lrt',
+        lengthChange: false,
+        paging: false,
+        searching: true,
+        columnDefs: [],
+        info: false,
+        columns: [{
+            title: "Name",
+            data: 'text',
+        }, {
+            title: '<i class="fas fa-cog"></i>',
+            data: 'id',
+            orderable: false,
+            width: "30px",
+            render: function(data, type, row, meta) {
+                return `<button class="btn btn-sm btn-danger" id="btn_add_delete" value="${data}" type="button"><i class="fas fa-trash"></i></button>`
+            }
+        }]
+    });
+
+    var table_edit = $("#table_edit").DataTable({
+        rowId: 'id',
+        dom: 'lrt',
+        lengthChange: false,
+        paging: false,
+        searching: true,
+        columnDefs: [],
+        info: false,
+        columns: [{
+            title: "Name",
+            data: 'calon_id',
+            render: function(data, type, row, meta) {
+                if (type == 'display') {
+                    if (data != null) {
+                        return `${row.calon.name} [${row.calon.partai}]`
+                    } else {
+                        return data
+
+                    }
+                } else {
+                    return data
+                }
+            }
+        }, {
+            title: '<i class="fas fa-cog"></i>',
+            data: 'id',
+            orderable: false,
+            width: "30px",
+            render: function(data, type, row, meta) {
+                return `<button class="btn btn-sm btn-danger" id="btn_edit_delete" value="${data}" type="button"><i class="fas fa-trash"></i></button>`
+            }
+        }]
+    });
+
+    $('#table_add').on('click', '#btn_add_delete', function() {
+        var row = table_add.row($(this).parents('tr'));
+        row.remove().draw(false);
+    });
+
+    $('#table_edit').on('click', '#btn_edit_delete', function() {
+        var row = table_edit.row($(this).parents('tr'));
+        deleteCalon(row.data().id);
+    });
+
+
     multiCheck(table);
     var id;
 
@@ -432,7 +462,13 @@
             $(element).addClass('is-valid');
         },
         submitHandler: function(form) {
-            let formData = form;
+            let object = {}
+            let data = $(form).serializeArray()
+            let dttbl = table_add.rows().data().toArray()
+            for (let i = 0; i < data.length; i++) {
+                object[data[i]['name']] = data[i]['value'];
+            }
+            object.calon = dttbl
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -440,8 +476,8 @@
             });
             $.ajax({
                 type: 'POST',
-                url: "{{ route('table.store') }}",
-                data: $(formData).serialize(),
+                url: "{{ route('event.store') }}",
+                data: object,
                 beforeSend: function() {
                     block();
                     $('button[type="submit"]').prop('disabled', true);
@@ -454,10 +490,12 @@
                 },
                 success: function(res) {
                     unblock();
-                    table.ajax.reload();
                     $('button[type="submit"]').prop('disabled', false);
                     $('#reset').click();
                     if (res.status == true) {
+                        table.ajax.reload();
+                        $('#calon').empty().change()
+                        table_add.rows().remove().draw()
                         swal(
                             'Success!',
                             res.message,
@@ -512,10 +550,7 @@
 
     $('#edit_reset').click(function() {
         id = $(this).val();
-        let url = "{{ route('table.edit', ':id') }}";
-        url = url.replace(':id', id);
-        get_data(id, false);
-
+        ajaxUpdate(id, false);
     })
 
     $('#table tbody').on('click', 'tr td:not(:first-child)', function() {
@@ -527,52 +562,8 @@
         });
         row = $(this).parents('tr')[0];
         id = table.row(row).data().id
-        get_data(id, true);
+        ajaxUpdate(id, true)
     });
-
-    function get_data(ids, open = false) {
-        id = ids;
-        let url = "{{ route('table.edit', ':id') }}";
-        url = url.replace(':id', id);
-        $.ajax({
-            url: url,
-            method: 'GET',
-            success: function(result) {
-                unblock();
-                $('#edit_reset').val(result.data.id);
-                $('#edit_id').val(result.data.id);
-                $('#edit_number').val(result.data.number);
-                $('#edit_status').val(result.data.status).change();
-
-                $('#modalEdit').modal('show');
-                if (open) {
-                    $('#modalEdit').on('shown.bs.modal', function() {
-                        $('#edit_number').focus();
-                    })
-                }
-            },
-            beforeSend: function() {
-                block();
-            },
-            error: function(xhr, status, error) {
-                unblock();
-                er = xhr.responseJSON.errors
-                if (xhr.status == 403) {
-                    swal(
-                        'Failed!',
-                        xhr.responseJSON.message,
-                        'error'
-                    )
-                } else {
-                    swal(
-                        'Failed!',
-                        'Server Error',
-                        'error'
-                    )
-                }
-            }
-        });
-    }
 
     $('#formEdit').submit(function(event) {
         event.preventDefault();
@@ -595,16 +586,19 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                 }
             });
-            let url = "{{ route('table.update', ':id') }}";
+            let url = "{{ route('event.update', ':id') }}";
             url = url.replace(':id', id);
             $.ajax({
                 type: 'POST',
+                mimeType: 'application/json',
+                dataType: 'json',
+                contentType: false,
+                processData: false,
                 url: url,
-                data: $(form).serialize(),
+                data: new FormData($(form)[0]),
                 beforeSend: function() {
                     block();
                     $('button[type="submit"]').prop('disabled', true);
-                    console.log('loading bro');
                     $('#formEdit .error.invalid-feedback').each(function(i) {
                         $(this).hide();
                     });
@@ -615,9 +609,9 @@
                 success: function(res) {
                     unblock();
                     table.ajax.reload();
-                    pg.pagination(1);
                     $('button[type="submit"]').prop('disabled', false);
                     $('#reset').click();
+                    ajaxUpdate(id, false);
                     if (res.status == true) {
                         swal(
                             'Success!',
@@ -662,19 +656,7 @@
         }
     });
 
-    function changeData() {
-        if (selected()) {
-            $('#modalChange').modal('show');
-            $('#modalChange').on('shown.bs.modal', function() {
-                $('#change_status').focus();
-            })
-        }
-    }
-
-    $("#submitChange").click(function() {
-        let btn = $(this);
-        let status = $('#change_status').val();
-        let form = $("#formSelected");
+    function addCalon(event_id, calon_id) {
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -682,20 +664,28 @@
         });
         $.ajax({
             type: 'POST',
-            url: "{{ route('table.change') }}",
-            data: $(form).serialize() + '&status=' + status,
+            url: "{{ route('dtevent.store') }}",
+            data: {
+                'event': event_id,
+                'calon': calon_id,
+            },
             beforeSend: function() {
-                btn.prop('disabled', true);
                 block();
+                $('button').prop('disabled', true);
+                $('#form .error.invalid-feedback').each(function(i) {
+                    $(this).hide();
+                });
+                $('#form input.is-invalid').each(function(i) {
+                    $(this).removeClass('is-invalid');
+                });
             },
             success: function(res) {
-                btn.prop('disabled', false);
                 unblock();
-                table.ajax.reload();
-                pg.pagination(1);
+                $('button').prop('disabled', false);
                 if (res.status == true) {
+                    ajaxUpdate(event_id, false)
                     swal(
-                        'Changed!',
+                        'Success!',
                         res.message,
                         'success'
                     )
@@ -708,8 +698,8 @@
                 }
             },
             error: function(xhr, status, error) {
-                btn.prop('disabled', false);
                 unblock();
+                $('button').prop('disabled', false);
                 er = xhr.responseJSON.errors
                 if (xhr.status == 500) {
                     swal(
@@ -723,18 +713,154 @@
                         xhr.responseJSON.message,
                         'error'
                     )
+                } else if (xhr.status == 422) {
+                    swal(
+                        'Failed!',
+                        xhr.responseJSON.message,
+                        'error'
+                    )
                 } else {
                     erlen = Object.keys(er).length
                     for (i = 0; i < erlen; i++) {
                         obname = Object.keys(er)[i];
                         $('#' + obname).addClass('is-invalid');
-                        $('#err_change_' + obname).text(er[obname][0]);
-                        $('#err_change_' + obname).show();
+                        $('#err_' + obname).text(er[obname][0]);
+                        $('#err_' + obname).show();
                     }
                 }
             }
         });
-    })
+    }
+
+    function deleteCalon(id) {
+        let url = "{{ route('dtevent.destroy', ':id') }}";
+        url = url.replace(':id', id);
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            type: 'DELETE',
+            url: url,
+            beforeSend: function() {
+                block();
+                $('button').prop('disabled', true);
+                $('#form .error.invalid-feedback').each(function(i) {
+                    $(this).hide();
+                });
+                $('#form input.is-invalid').each(function(i) {
+                    $(this).removeClass('is-invalid');
+                });
+            },
+            success: function(res) {
+                unblock();
+                $('button').prop('disabled', false);
+                if (res.status == true) {
+                    $('#edit_reset').click()
+                    swal(
+                        'Success!',
+                        res.message,
+                        'success'
+                    )
+                } else {
+                    swal(
+                        'Failed!',
+                        res.message,
+                        'error'
+                    )
+                }
+            },
+            error: function(xhr, status, error) {
+                unblock();
+                $('button').prop('disabled', false);
+                er = xhr.responseJSON.errors
+                if (xhr.status == 500) {
+                    swal(
+                        'Failed!',
+                        'Server Error',
+                        'error'
+                    )
+                } else if (xhr.status == 403) {
+                    swal(
+                        'Failed!',
+                        xhr.responseJSON.message,
+                        'error'
+                    )
+                } else if (xhr.status == 422) {
+                    swal(
+                        'Failed!',
+                        xhr.responseJSON.message,
+                        'error'
+                    )
+                } else {
+                    erlen = Object.keys(er).length
+                    for (i = 0; i < erlen; i++) {
+                        obname = Object.keys(er)[i];
+                        $('#' + obname).addClass('is-invalid');
+                        $('#err_' + obname).text(er[obname][0]);
+                        $('#err_' + obname).show();
+                    }
+                }
+            }
+        });
+    }
+
+    function ajaxUpdate(id, open = false) {
+        let url = "{{ route('event.edit', ':id') }}";
+        url = url.replace(':id', id);
+        $.ajax({
+            url: url,
+            method: 'GET',
+            success: function(result) {
+                unblock();
+                $('button').prop('disabled', false);
+                updateModal(result, open);
+            },
+            beforeSend: function() {
+                block();
+                $('button').prop('disabled', true);
+            },
+            error: function(xhr, status, error) {
+                unblock();
+                $('button').prop('disabled', false);
+                er = xhr.responseJSON.errors
+                if (xhr.status == 403) {
+                    swal(
+                        'Failed!',
+                        xhr.responseJSON.message,
+                        'error'
+                    )
+                } else {
+                    swal(
+                        'Failed!',
+                        'Server Error',
+                        'error'
+                    )
+                }
+            }
+        });
+    }
+
+    function updateModal(result, open = false) {
+        $('#edit_reset').val(result.data.id);
+        $('#btn_edit_calon').val(result.data.id);
+        $('#edit_id').val(result.data.id);
+        $('#edit_name').val(result.data.name);
+        $('#edit_date').val(moment(result.data.date).format('YYYY-MM-DD'));
+        $('#edit_expired').val(moment(result.data.expired).format('YYYY-MM-DD'));
+        $('#edit_desc').val(result.data.desc);
+        $('#edit_calon').empty().change();
+        table_edit.clear().rows.add(result.data.dtevent).draw();
+        if (open === true) {
+            $('#modalEdit').modal('show');
+            $('#modalEdit').on('shown.bs.modal', function() {
+                $('#edit_name').focus();
+            })
+        } else {
+            $('#edit_name').focus();
+        }
+    }
 
     function deleteData() {
         if (selected()) {
@@ -754,7 +880,7 @@
                     });
                     $.ajax({
                         type: 'DELETE',
-                        url: "{{ route('table.destroy') }}",
+                        url: "{{ route('calon.destroy') }}",
                         data: $(form).serialize(),
                         beforeSend: function() {
                             block();
@@ -762,7 +888,6 @@
                         success: function(res) {
                             unblock();
                             table.ajax.reload();
-                            pg.pagination(1);
                             if (res.status == true) {
                                 swal(
                                     'Deleted!',

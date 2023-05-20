@@ -22,7 +22,7 @@ class UserController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = User::with('roles')->get();
+            $data = User::get();
             if ($request->email) {
                 $data = User::where('email', 'like', "%{$request->email}%")->get();
             }
@@ -37,18 +37,12 @@ class UserController extends Controller
             'name'      => 'required|max:25|min:3',
             'email'     => 'required|email|unique:users,email',
             'password'  => 'required|min:7',
-            'wa'        => 'max:15',
-            'address'   => 'max:150',
-            'role'      => 'required',
         ]);
         $user = User::create([
             'name'      => $request->name,
             'email'     => $request->email,
             'password'  => Hash::make($request->password),
-            'wa'        => $request->wa,
-            'address'   => $request->address,
         ]);
-        $user->assignRole($request->role);
         if ($user) {
             return response()->json(['status' => true, 'message' => 'Success Insert Data', 'data' => '']);
         } else {
@@ -59,7 +53,7 @@ class UserController extends Controller
     public function edit(Request $request, User $user)
     {
         if ($request->ajax()) {
-            $user = User::with('roles')->find($user->id);
+            $user = User::find($user->id);
             return response()->json(['status' => true, 'message' => '', 'data' => $user]);
         } else {
             abort(404);
@@ -82,7 +76,6 @@ class UserController extends Controller
             'wa'            => $request->wa,
             'address'       => $request->address,
         ]);
-        $user->syncRoles($request->role);
         if ($user) {
             return response()->json(['status' => true, 'message' => 'Success Update Data', 'data' => '']);
         } else {
@@ -123,13 +116,11 @@ class UserController extends Controller
         if ($request->has('type') && $request->type == 'profile') {
             $this->validate($request, [
                 'name'      => 'required|max:25|min:3',
-                'wa'        => 'required|max:15|min:8',
-                'address'   => 'max:150',
+                'email'     => 'required|email|max:150|unique:users,email,' . Auth()->id() . ',id',
             ]);
             $update = $user->update([
                 'name'      => $request->name,
-                'wa'        => $request->wa,
-                'address'   => $request->address,
+                'email'      => $request->email,
             ]);
             if ($update) {
                 return redirect()->route('user.profile')->with('success', 'Success Update Profile!');
@@ -142,15 +133,15 @@ class UserController extends Controller
                 'password2' => 'required',
             ]);
             if (Hash::check($request->password, $user->password)) {
-                return redirect()->route('user.password')->with(['error' => "Password tidak boleh sama dengan sebelumnya!"]);
+                return redirect()->route('user.profile')->with(['error' => "Password tidak boleh sama dengan sebelumnya!"]);
             } else {
                 $password = $user->update([
                     'password'     => Hash::make($request->password),
                 ]);
                 if ($password) {
-                    return redirect()->route('user.password')->with(['success' => 'Success Update Password!']);
+                    return redirect()->route('user.profile')->with(['success' => 'Success Update Password!']);
                 } else {
-                    return redirect()->route('user.password')->with(['error' => 'Failed Update Password!']);
+                    return redirect()->route('user.profile')->with(['error' => 'Failed Update Password!']);
                 }
             }
         } else {

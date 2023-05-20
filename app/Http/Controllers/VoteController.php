@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Dtreqstock;
+use App\Models\Vote;
 use Illuminate\Http\Request;
 
-class DtreqstockController extends Controller
+class VoteController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class DtreqstockController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Dtreqstock  $dtreqstock
+     * @param  \App\Models\Vote  $vote
      * @return \Illuminate\Http\Response
      */
-    public function show(Dtreqstock $dtreqstock)
+    public function show(Vote $vote)
     {
         //
     }
@@ -52,10 +52,10 @@ class DtreqstockController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Dtreqstock  $dtreqstock
+     * @param  \App\Models\Vote  $vote
      * @return \Illuminate\Http\Response
      */
-    public function edit(Dtreqstock $dtreqstock)
+    public function edit(Vote $vote)
     {
         //
     }
@@ -64,10 +64,10 @@ class DtreqstockController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Dtreqstock  $dtreqstock
+     * @param  \App\Models\Vote  $vote
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Dtreqstock $dtreqstock)
+    public function update(Request $request, Vote $vote)
     {
         //
     }
@@ -75,10 +75,10 @@ class DtreqstockController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Dtreqstock  $dtreqstock
+     * @param  \App\Models\Vote  $vote
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Dtreqstock $dtreqstock)
+    public function destroy(Vote $vote)
     {
         //
     }

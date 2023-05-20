@@ -104,16 +104,17 @@
             <li class="nav-item {{ $title == 'Dashboard' ? 'active' : '' }}">
                 <a href="{{ route('home') }}" class="nav-link"><i class="fas fa-fire"></i><span>Dashboard</span></a>
             </li>
-            <li class="nav-item dropdown {{ $title == 'Data Calon' || $title == 'Data Category' || $title == 'Data Menu' || $title == 'Data User' ? 'active' : '' }}">
+            <li class="nav-item dropdown {{ $title == 'Data Calon' || $title == 'Data Event' || $title == 'Data Menu' || $title == 'Data User' ? 'active' : '' }}">
                 <a href="javascript:void(0);" data-toggle="dropdown" class="nav-link has-dropdown"><i class="fas fa-database"></i><span>Master Data</span></a>
                 <ul class="dropdown-menu">
-                    <li class="nav-item {{ $title == 'Data Calon' ? 'active' : '' }}"><a class="nav-link" href="{{ route('calon.index') }}">Table</a></li>
+                    <li class="nav-item {{ $title == 'Data Event' ? 'active' : '' }}"><a class="nav-link" href="{{ route('event.index') }}">Event</a></li>
+                    <li class="nav-item {{ $title == 'Data Calon' ? 'active' : '' }}"><a class="nav-link" href="{{ route('calon.index') }}">Calon</a></li>
+                    <li class="nav-item {{ $title == 'Data User' ? 'active' : '' }}"><a class="nav-link" href="{{ route('user.index') }}">User</a></li>
                 </ul>
             </li>
             <li class="nav-item {{ $title == 'New Order' ? 'active' : '' }}">
                 <a href="{{ route('home') }}" class="nav-link"><i class="fas fa-cart-plus"></i><span>New Order</span></a>
             </li>
-
         </ul>
     </div>
 </nav>
