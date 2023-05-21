@@ -61,7 +61,7 @@ class EventController extends Controller
                 'desc'      => $request->desc,
             ]);
             $calon = $request->calon;
-            if (count($calon) > 0) {
+            if ($request->has('calon') && count($calon) > 0) {
                 foreach ($calon as $c) {
                     Dtevent::create([
                         'event_id' => $event->id,
@@ -116,7 +116,6 @@ class EventController extends Controller
             'expired'   => 'required|date_format:Y-m-d|after_or_equal:date',
             'desc'      => 'max:150',
         ]);
-
         $event = Event::findOrFail($event->id);
         $event->update([
             'name'      => $request->name,

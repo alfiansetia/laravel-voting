@@ -124,24 +124,4 @@ class VoteController extends Controller
         }
     }
 
-    public function statistic(Request $request)
-    {
-        $this->validate($request, [
-            'event' => 'required|exists:event,id',
-        ]);
-        // $data['status'] = Vote::select('status', Vote::raw('COUNT(*) as total'))
-        //     ->groupBy('status')
-        //     ->where('event_id', $request->event)
-        //     ->get();
-        $data['status']['valid'] = Vote::where('event_id', $request->event)->where('status', 'valid')->count();
-        $data['status']['invalid'] = Vote::where('event_id', $request->event)->where('status', 'invalid')->count();
-        $data['event'] = Event::find($request->event);
-        $data['detail'] = Vote::select('calon_id', Vote::raw('COUNT(*) as total'))
-            ->groupBy('calon_id')
-            ->with('calon')
-            ->where('event_id', $request->event)
-            ->where('calon_id', '!=', null)
-            ->get();
-        return response()->json(['status' => true, 'message' => '', 'data' => $data]);
-    }
 }

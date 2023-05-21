@@ -300,7 +300,7 @@
                 dataType: 'json',
                 contentType: false,
                 processData: false,
-                url: "{{ route('calon.store') }}",
+                url: "{{ route('vote.store') }}",
                 data: new FormData($(form)[0]),
                 beforeSend: function() {
                     block();
@@ -408,7 +408,7 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                 }
             });
-            let url = "{{ route('calon.update', ':id') }}";
+            let url = "{{ route('vote.update', ':id') }}";
             url = url.replace(':id', id);
             $.ajax({
                 type: 'POST',
@@ -479,7 +479,7 @@
     });
 
     function ajaxUpdate(id, open = false) {
-        let url = "{{ route('calon.edit', ':id') }}";
+        let url = "{{ route('vote.edit', ':id') }}";
         url = url.replace(':id', id);
         $.ajax({
             url: url,
@@ -554,7 +554,7 @@
                     });
                     $.ajax({
                         type: 'DELETE',
-                        url: "{{ route('calon.destroy') }}",
+                        url: "{{ route('vote.destroy') }}",
                         data: $(form).serialize(),
                         beforeSend: function() {
                             block();
