@@ -5,6 +5,7 @@ use App\Http\Controllers\CompController;
 use App\Http\Controllers\DteventController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\StatisticController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VoteController;
 use Illuminate\Support\Facades\Auth;
@@ -51,7 +52,9 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     // Route::delete('/dtevent', [DteventController::class, 'destroy'])->name('dtevent.destroy');
     Route::resource('dtevent', DteventController::class)->only(['index', 'store', 'destroy']);
 
-    Route::get('/vote/statistic', [VoteController::class, 'statistic'])->name('vote.statistic');
     Route::delete('/vote', [VoteController::class, 'destroy'])->name('vote.destroy');
     Route::resource('vote', VoteController::class)->only(['index', 'create', 'store', 'edit', 'update']);
 });
+
+Route::get('/statistic/event', [StatisticController::class, 'event'])->name('statistic.event');
+Route::get('/statistic', [StatisticController::class, 'index'])->name('statistic.index');

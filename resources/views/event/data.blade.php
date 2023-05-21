@@ -158,6 +158,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times mr-1" data-toggle="tooltip" title="Close"></i>Close</button>
                 <button type="button" id="edit_reset" class="btn btn-warning"><i class="fas fa-undo mr-1" data-toggle="tooltip" title="Reset"></i>Reset</button>
+                <button type="button" id="btn_vote" class="btn btn-info"><i class="fas fa-paper-plane mr-1" data-toggle="tooltip" title="Vote"></i>Statistic</button>
                 <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane mr-1" data-toggle="tooltip" title="Save"></i>Save</button>
             </div>
             </form>
@@ -183,6 +184,17 @@
 @endpush
 
 @push('js')
+
+@error('event')
+<script>
+    swal(
+        'Failed!',
+        "{{ $message }}",
+        'error'
+    )
+</script>
+@enderror
+
 <script>
     $(document).ready(function() {
         $("#date, #edit_date, #expired, #edit_expired").daterangepicker({
@@ -252,6 +264,11 @@
             } else {
                 $('#calon').focus()
             }
+        })
+
+        $("#btn_vote").click(function() {
+            let data = $(this).val()
+            window.open("{{ route('statistic.index') }}?event=" + data, '_blank')
         })
     });
 
@@ -845,10 +862,13 @@
     function updateModal(result, open = false) {
         $('#edit_reset').val(result.data.id);
         $('#btn_edit_calon').val(result.data.id);
+        $('#btn_vote').val(result.data.id);
         $('#edit_id').val(result.data.id);
         $('#edit_name').val(result.data.name);
-        $('#edit_date').val(moment(result.data.date).format('YYYY-MM-DD'));
-        $('#edit_expired').val(moment(result.data.expired).format('YYYY-MM-DD'));
+        $('#edit_date').data('daterangepicker').setStartDate(moment(result.data.date).format('YYYY-MM-DD'));
+        $('#edit_date').data('daterangepicker').setEndDate(moment(result.data.date).format('YYYY-MM-DD'));
+        $('#edit_expired').data('daterangepicker').setStartDate(moment(result.data.expired).format('YYYY-MM-DD'));
+        $('#edit_expired').data('daterangepicker').setEndDate(moment(result.data.expired).format('YYYY-MM-DD'));
         $('#edit_desc').val(result.data.desc);
         $('#edit_calon').empty().change();
         table_edit.clear().rows.add(result.data.dtevent).draw();
