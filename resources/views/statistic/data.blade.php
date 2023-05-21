@@ -23,12 +23,16 @@
                 <div class="card-body">
                     <div class="owl-carousel owl-theme slider pt-0" id="slider2" data-ride="carousel">
                         @foreach($calon as $c)
-                        <div class="row">
-                            <img alt="{{ $c->calon->name }}" src="{{ url('/images/calon/' . ($c->calon->image ?? $c->calon->gender) . '.jpg') }}">
+                        <div>
+                            <center>
+                                <img alt="{{ $c->calon->name }}" src="{{ url('/images/calon/' . ($c->calon->image ?? ($c->calon->gender . '.jpg'))) }}" style="width: 70%; height: 70%;">
+                            </center>
                             <div class="slider-caption">
-                                <div class="slider-title">{{ $c->calon->name }} [{{ $c->calon->partai }}]</div>
+                                <div class="slider-title">
+                                    <h3>{{ $c->calon->name }} [{{ $c->calon->partai }}]</h3>
+                                </div>
                                 <div class="slider-description">
-                                    Suara : <span id="suara_calon{{ $c->calon_id }}"></span>
+                                    <h3>Suara : <span class="badge badge-success suara_calon{{ $c->calon_id }}" id="suara_calon{{ $c->calon_id }}">0</span></h3>
                                 </div>
                             </div>
                         </div>
@@ -182,7 +186,7 @@
     function createPie(data) {
         clearePie()
         for (let i = 0; i < data.detail.length; i++) {
-            $('#suara_calon' + data.detail[i].calon_id).text(data.detail[i].total ?? 0)
+            $('.suara_calon' + data.detail[i].calon_id).text(data.detail[i].total)
             myChart.data.datasets[0].data.push(data.detail[i].total ?? 0)
             myChart.data.labels.push(data.detail[i].calon.name)
         }

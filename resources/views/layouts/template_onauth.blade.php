@@ -22,9 +22,20 @@
 <body class="layout-3">
     <div id="app">
         <div class="main-wrapper {{ $title == 'New Order' ? 'container-fluid' : 'container' }}">
-        <!-- <div class="main-wrapper container"> -->
+            <!-- <div class="main-wrapper container"> -->
             <div class="navbar-bg"></div>
-            @include('components.topnav')
+            <nav class="navbar navbar-expand-lg main-navbar">
+                <a href="{{ route('home') }}" class="navbar-brand sidebar-gone-hide">{{ $comp->name }}</a>
+                <div class="nav-collapse">
+                    <a class="sidebar-gone-show nav-collapse-toggle nav-link" href="#">
+                        <i class="fas fa-ellipsis-v"></i>
+                    </a>
+                    <ul class="navbar-nav">
+                        <li class="nav-item active"><a href="{{ route('home') }}" class="nav-link">Home</a></li>
+                        <li class="nav-item"><a href="{{ route('onauth.index') }}" class="nav-link">Event</a></li>
+                    </ul>
+                </div>
+            </nav>
 
             <!-- Main Content -->
             <div class="main-content">

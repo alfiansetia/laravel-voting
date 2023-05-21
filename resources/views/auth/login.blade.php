@@ -61,9 +61,13 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
-                                            Login
-                                        </button>
+                                        <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">Login</button>
+                                    </div>
+                                    <div class="form-group">
+                                        <center> - OR -</center>
+                                    </div>
+                                    <div class="form-group">
+                                        <a href="{{ route('onauth.index') }}" class="btn btn-info btn-lg btn-block" tabindex="4">List Event</a>
                                     </div>
                                 </form>
                             </div>

@@ -1,5 +1,14 @@
 <nav class="navbar navbar-expand-lg main-navbar">
     <a href="{{ route('home') }}" class="navbar-brand sidebar-gone-hide">{{ $comp->name }}</a>
+    <div class="nav-collapse">
+        <a class="sidebar-gone-show nav-collapse-toggle nav-link" href="#">
+            <i class="fas fa-ellipsis-v"></i>
+        </a>
+        <ul class="navbar-nav">
+            <li class="nav-item active"><a href="{{ route('home') }}" class="nav-link">Home</a></li>
+            <li class="nav-item"><a href="{{ route('onauth.index') }}" class="nav-link">Event</a></li>
+        </ul>
+    </div>
     @if($title != 'Statistic')
     <div class="navbar-nav">
         <a href="#" class="nav-link sidebar-gone-show" data-toggle="sidebar"><i class="fas fa-bars"></i></a>

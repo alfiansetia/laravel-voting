@@ -5,6 +5,7 @@ use App\Http\Controllers\CompController;
 use App\Http\Controllers\DteventController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\OnAuthController;
 use App\Http\Controllers\StatisticController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VoteController;
@@ -49,7 +50,6 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::delete('/event', [EventController::class, 'destroy'])->name('event.destroy');
     Route::resource('event', EventController::class)->only(['index', 'store', 'edit', 'update']);
 
-    // Route::delete('/dtevent', [DteventController::class, 'destroy'])->name('dtevent.destroy');
     Route::resource('dtevent', DteventController::class)->only(['index', 'store', 'destroy']);
 
     Route::delete('/vote', [VoteController::class, 'destroy'])->name('vote.destroy');
@@ -58,3 +58,5 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
 Route::get('/statistic/event', [StatisticController::class, 'event'])->name('statistic.event');
 Route::get('/statistic', [StatisticController::class, 'index'])->name('statistic.index');
+
+Route::get('/onauth', [OnAuthController::class, 'index'])->name('onauth.index');
